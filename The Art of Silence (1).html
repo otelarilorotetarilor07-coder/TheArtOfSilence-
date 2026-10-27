@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Art of Silence</title>
+<meta name="description" content="A quiet meditation on stillness, listening, and the space between words.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f1f2ef; --fg:#2a2f31; --muted:#7b8386; --line:#cfd4d3; --dot:#4d5a5e;
+  --fog1:#e6e9e7; --fog2:#c9d0d0; --fog3:#a9b4b6; --fog4:#7f8d92; --figure:#2a3236;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#13181a; --fg:#e4e7e5; --muted:#8a9497; --line:#2c3437; --dot:#c4cdce;
+    --fog1:#2b3538; --fog2:#232c2f; --fog3:#1b2326; --fog4:#151c1e; --figure:#0b0f10;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#13181a; --fg:#e4e7e5; --muted:#8a9497; --line:#2c3437; --dot:#c4cdce;
+  --fog1:#2b3538; --fog2:#232c2f; --fog3:#1b2326; --fog4:#151c1e; --figure:#0b0f10;
+  color-scheme:dark;
+}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);
+  font-family:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+  font-size:1.25rem;line-height:1.6;-webkit-font-smoothing:antialiased}
+
+.hero{position:relative;min-height:100svh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:4rem 1.5rem}
+.hero svg{position:absolute;inset:0;width:100%;height:100%}
+.hero .veil{position:absolute;inset:0;
+  background:linear-gradient(to bottom,transparent 40%,var(--bg) 100%)}
+.hero-copy{position:relative;z-index:1;opacity:0;animation:rise 2.4s ease .3s forwards}
+.kicker{font-style:italic;color:var(--muted);letter-spacing:.04em;margin:0 0 1.5rem;font-size:1.1rem}
+h1{font-weight:300;font-size:clamp(3.2rem,11vw,7.5rem);line-height:.98;margin:0;letter-spacing:-.01em}
+h1 em{display:block;font-weight:300;color:var(--muted)}
+.quote{margin:2.5rem auto 0;font-style:italic;font-size:1.35rem;max-width:22ch}
+.cite{margin:.75rem 0 0;font-size:.85rem;letter-spacing:.22em;color:var(--muted)}
+
+main{max-width:36rem;margin:0 auto;padding:4rem 1.75rem 2rem}
+section{text-align:center;padding:4.5rem 0;border-top:1px solid var(--line)}
+section:first-child{border-top:0}
+.num{display:block;font-style:italic;color:var(--muted);font-size:1.1rem;margin-bottom:.75rem}
+h2{font-weight:400;font-size:clamp(2rem,6vw,2.75rem);margin:0 0 1.25rem;line-height:1.1}
+section p{margin:0 auto;max-width:30ch;color:var(--fg)}
+
+.practice{padding-bottom:5rem}
+.bridge{margin:1.75rem auto 0;max-width:34ch;font-style:italic;color:var(--muted)}
+.breathe{display:flex;flex-direction:column;align-items:center;gap:1.75rem;text-align:center;padding:2rem 0 3rem}
+.dot-wrap{height:56px;display:flex;align-items:center;justify-content:center}
+.dot{width:14px;height:14px;border-radius:50%;background:var(--dot);opacity:.55;transform:scale(1);
+  transition:transform var(--d,4s) cubic-bezier(.4,0,.4,1),opacity var(--d,4s) ease-in-out}
+.dot.in{transform:scale(3.4);opacity:1}
+.presets{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin:.5rem 0 0}
+.presets button{font:inherit;font-size:1rem;color:var(--muted);background:none;border:1px solid var(--line);
+  border-radius:999px;padding:.3rem .95rem;cursor:pointer}
+.presets button[aria-pressed="true"]{color:var(--fg);border-color:var(--fg)}
+.phase{font-style:italic;font-size:1.5rem;margin:0}
+.count{font-variant-numeric:tabular-nums;color:var(--muted);font-size:1.05rem;min-height:1.6em;margin:0}
+.breathe p{margin:0;font-style:italic;font-size:1.35rem}
+.breathe .small{font-style:normal;color:var(--muted);font-size:1.05rem}
+.end{text-align:center;color:var(--muted);letter-spacing:.6em;padding:1rem 0 4rem}
+
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){
+  .hero-copy{animation:none;opacity:1}
+  .dot,.dot.in{transition:none;transform:none}
+}
+:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <svg viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" role="img" aria-label="A lone figure by a misty lake at dawn">
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="var(--fog2)"/>
+        <stop offset=".55" stop-color="var(--fog1)"/>
+        <stop offset="1" stop-color="var(--bg)"/>
+      </linearGradient>
+      <linearGradient id="lake" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="var(--fog1)"/>
+        <stop offset="1" stop-color="var(--fog3)"/>
+      </linearGradient>
+      <radialGradient id="sun" cx=".5" cy=".5" r=".5">
+        <stop offset="0" stop-color="var(--bg)" stop-opacity=".95"/>
+        <stop offset="1" stop-color="var(--bg)" stop-opacity="0"/>
+      </radialGradient>
+      <filter id="soft"><feGaussianBlur stdDeviation="6"/></filter>
+      <filter id="softer"><feGaussianBlur stdDeviation="14"/></filter>
+    </defs>
+    <rect width="800" height="1000" fill="url(#sky)"/>
+    <circle cx="400" cy="600" r="260" fill="url(#sun)"/>
+    <path d="M0 640 L120 560 L230 620 L340 540 L460 610 L580 530 L700 600 L800 560 L800 700 L0 700Z" fill="var(--fog3)" opacity=".55" filter="url(#soft)"/>
+    <path d="M0 680 L90 630 L200 670 L320 620 L450 675 L570 625 L690 670 L800 640 L800 720 L0 720Z" fill="var(--fog4)" opacity=".6" filter="url(#soft)"/>
+    <rect y="700" width="800" height="300" fill="url(#lake)"/>
+    <ellipse cx="400" cy="760" rx="300" ry="14" fill="var(--bg)" opacity=".35" filter="url(#soft)"/>
+    <ellipse cx="400" cy="830" rx="220" ry="8" fill="var(--bg)" opacity=".25" filter="url(#soft)"/>
+    <ellipse cx="400" cy="705" rx="520" ry="48" fill="var(--bg)" opacity=".7" filter="url(#softer)"/>
+    <g fill="var(--figure)">
+      <circle cx="560" cy="716" r="5"/>
+      <path d="M552 722 q8 -4 16 0 l3 34 h-22Z"/>
+    </g>
+    <g fill="var(--figure)" opacity=".18" transform="translate(0 1432) scale(1 -1)">
+      <path d="M552 722 q8 -4 16 0 l3 34 h-22Z"/>
+    </g>
+  </svg>
+  <div class="veil"></div>
+  <div class="hero-copy">
+    <p class="kicker">An essay in quiet</p>
+    <h1>The Art <em>of Silence</em></h1>
+    <p class="quote">“Silence is a source of great strength.”</p>
+    <p class="cite">— LAO TZU</p>
+  </div>
+</header>
+
+<main>
+  <section>
+    <span class="num">I</span>
+    <h2>Stillness</h2>
+    <p>Silence is not absence. It is the ground from which every sound rises and to which it returns.</p>
+  </section>
+  <section>
+    <span class="num">II</span>
+    <h2>Listening</h2>
+    <p>To be quiet is to make room. In that room, others — and the world — can finally speak.</p>
+  </section>
+  <section>
+    <span class="num">III</span>
+    <h2>The Pause</h2>
+    <p>Music lives in its rests. A conversation breathes in the moment no one fills.</p>
+  </section>
+  <section class="practice">
+    <span class="num">IV</span>
+    <h2>Practice</h2>
+    <p>Begin with one minute. Close your eyes. Notice what remains when you stop adding.</p>
+    <p class="bridge">Your breath already holds these lessons. The hold between breaths is stillness. A slow exhale makes room, the way listening does. And the gap before the next inhale is the rest in the music.</p>
+  </section>
+
+  <div class="breathe">
+    <div class="dot-wrap"><div class="dot" id="dot" aria-hidden="true"></div></div>
+    <p class="phase" id="phase">Breathe in</p>
+    <p class="count" id="count" aria-hidden="true">4</p>
+    <p>Breathe with the dot.</p>
+    <p class="small">Nothing else is required.</p>
+    <p class="small" id="note"></p>
+    <div class="presets" role="group" aria-label="Breathing rhythm">
+      <button type="button" data-k="calm" aria-pressed="true">Calm 4·1·6·1</button>
+      <button type="button" data-k="balanced" aria-pressed="false">Balanced 5·5</button>
+      <button type="button" data-k="box" aria-pressed="false">Box 4·4·4·4</button>
+      <button type="button" data-k="relax" aria-pressed="false">4·7·8</button>
+    </div>
+  </div>
+  <div class="end" aria-hidden="true">· · ·</div>
+</main>
+
+<script>
+(function(){
+  var dot=document.getElementById('dot'),ph=document.getElementById('phase'),
+      ct=document.getElementById('count'),note=document.getElementById('note'),
+      btns=document.querySelectorAll('.presets button');
+  // [breathe in, hold, breathe out, hold] in seconds
+  var P={calm:[4,1,6,1],balanced:[5,0,5,0],box:[4,4,4,4],relax:[4,7,8,0]};
+  var T={calm:'Closest to the research on slow breathing',balanced:'Even and easy for beginners',
+         box:'Popular, with less research behind it',relax:'Long hold: shorten it if it feels hard'};
+  var names=['Breathe in','Hold','Breathe out','Hold'],timer=null,gen=0;
+  function start(key){
+    clearTimeout(timer);
+    var v=P[key],g=++gen,i=0,sum=v[0]+v[1]+v[2]+v[3];
+    note.textContent=T[key]+': about '+Math.round(60/sum)+' breaths a minute.';
+    dot.style.setProperty('--d','1s');dot.classList.remove('in');
+    function phase(){
+      if(g!==gen)return;
+      while(v[i%4]===0)i++;
+      var k=i%4,n=v[k];
+      ph.textContent=names[k];
+      if(k===0){dot.style.setProperty('--d',n+'s');dot.classList.add('in')}
+      if(k===2){dot.style.setProperty('--d',n+'s');dot.classList.remove('in')}
+      ct.textContent=n;
+      (function tick(){timer=setTimeout(function(){
+        if(g!==gen)return;n--;
+        if(n>0){ct.textContent=n;tick()}else{i++;phase()}
+      },1000)})();
+    }
+    setTimeout(phase,400);
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){
+    btns.forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});
+    start(b.dataset.k);
+  })});
+  start('calm');
+})();
+</script>
+</body>
+</html>
